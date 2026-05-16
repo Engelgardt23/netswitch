@@ -1,0 +1,21 @@
+# Changelog
+
+All notable changes to **netswitch** are documented in this file.
+
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [1.0.0] - 2026-05-16
+### Added
+- First public release on GitHub.
+- Portable `.exe` (~30 KB) built from PowerShell via ps2exe.
+- Self-elevation through UAC.
+- Physical wired NIC filter — Wi-Fi, VPN, virtual, Hyper-V, VMware, VirtualBox, TAP/TUN, WireGuard, OpenVPN, Tailscale, ZeroTier, Bluetooth, Loopback and WAN Miniport adapters are hidden from the picker.
+- Two modes: **Static** (default `10.10.10.1/24`, optional gateway) and **DHCP**.
+- Current IPv4 configuration is printed after the change.
+- Auto-update check on startup: polls GitHub `/releases/latest` with a 3-second timeout and offers to open the download page if a newer version exists. Silent on offline / API errors.
+- MIT licensed.
+
+[Unreleased]: https://github.com/Engelgardt23/netswitch/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Engelgardt23/netswitch/releases/tag/v1.0.0
