@@ -1,0 +1,12 @@
+# Build output / staging
+*.exe
+portable-v*/
+
+# Local backup of release archives
+releases/
+
+# Editor / OS junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
