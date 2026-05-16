@@ -28,7 +28,7 @@ jobs:
         run: |
           Import-Module ps2exe
           $ver = '${{ steps.ver.outputs.version }}'
-          Invoke-ps2exe -inputFile netswitch.ps1 -outputFile netswitch.exe `
+          Invoke-ps2exe -inputFile src/netswitch.ps1 -outputFile netswitch.exe `
               -title "netswitch" -description "NIC IP/DHCP toggle - made by engelgardt" `
               -company "engelgardt" -version "$ver.0" `
               -requireAdmin
