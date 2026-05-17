@@ -1,7 +1,7 @@
 # netswitch v1.0.0 - quick NIC IP / DHCP toggle
 # made by engelgardt
 
-$NetswitchVersion = '1.0.1'
+$NetswitchVersion = '1.0.2'
 $GithubRepo       = 'Engelgardt23/netswitch'
 
 $ErrorActionPreference = 'Stop'
@@ -107,8 +107,8 @@ if ($modeChoice.Trim() -eq '2') {
     # --- DHCP ---
     Write-Host ""
     Write-Host "Setting $($nic.Name) to DHCP..." -ForegroundColor Yellow
-    & netsh interface ipv4 set address name="$($nic.Name)" source=dhcp
-    & netsh interface ipv4 set dnsservers name="$($nic.Name)" source=dhcp
+    $null = & netsh interface ipv4 set address name="$($nic.Name)" source=dhcp 2>&1
+    $null = & netsh interface ipv4 set dnsservers name="$($nic.Name)" source=dhcp 2>&1
     Write-Host "Done." -ForegroundColor Green
 }
 else {
@@ -125,9 +125,9 @@ else {
     Write-Host "Setting $($nic.Name) -> $ip / $mask$( if ($gw) { " via $gw" })" -ForegroundColor Yellow
 
     if ([string]::IsNullOrWhiteSpace($gw)) {
-        & netsh interface ipv4 set address name="$($nic.Name)" static $ip $mask
+        $null = & netsh interface ipv4 set address name="$($nic.Name)" static $ip $mask 2>&1
     } else {
-        & netsh interface ipv4 set address name="$($nic.Name)" static $ip $mask $gw
+        $null = & netsh interface ipv4 set address name="$($nic.Name)" static $ip $mask $gw 2>&1
     }
     Write-Host "Done." -ForegroundColor Green
 }
