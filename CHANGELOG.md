@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-05-17
+### Changed
+- Update check no longer interrupts startup with an interactive prompt. If a newer release is available, a quiet right-aligned `update available (vX.Y.Z)` hint is printed in dim grey directly under the banner — no key press required.
+
 ## [1.0.2] - 2026-05-17
 ### Fixed
 - Suppress `netsh` output to avoid mojibake on non-UTF-8 consoles (Russian Windows printed `╤Г╨╢╨╡ ╨▓╨║╨╗╤О╤З╨╡╨╜╨╛...` because netsh emits in the OEM code page). Our own English status lines remain; the post-change `Get-NetIPAddress` block already prints Unicode.
@@ -27,5 +31,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Auto-update check on startup: polls GitHub `/releases/latest` with a 3-second timeout and offers to open the download page if a newer version exists. Silent on offline / API errors.
 - MIT licensed.
 
-[Unreleased]: https://github.com/Engelgardt23/netswitch/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/Engelgardt23/netswitch/compare/v1.0.3...HEAD
+[1.0.3]: https://github.com/Engelgardt23/netswitch/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/Engelgardt23/netswitch/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/Engelgardt23/netswitch/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/Engelgardt23/netswitch/releases/tag/v1.0.0

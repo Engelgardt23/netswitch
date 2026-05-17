@@ -1,7 +1,7 @@
 # netswitch v1.0.0 - quick NIC IP / DHCP toggle
 # made by engelgardt
 
-$NetswitchVersion = '1.0.2'
+$NetswitchVersion = '1.0.3'
 $GithubRepo       = 'Engelgardt23/netswitch'
 
 $ErrorActionPreference = 'Stop'
@@ -19,20 +19,13 @@ if (-not $me.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     exit
 }
 
-# --- Banner ---
-Write-Host ""
-Write-Host "==============================================" -ForegroundColor Cyan
-Write-Host "  netswitch v$NetswitchVersion - NIC IP/DHCP toggle" -ForegroundColor Cyan
-Write-Host "==============================================" -ForegroundColor Cyan
-Write-Host ""
-
-# --- Update check ---
-function Test-NetswitchUpdate {
+# --- Update check (silent: returns latest tag if newer, else empty) ---
+function Get-NetswitchUpdate {
     try {
         $url = "https://api.github.com/repos/$GithubRepo/releases/latest"
         $r = Invoke-RestMethod -Uri $url -TimeoutSec 3 -Headers @{ 'User-Agent' = "netswitch/$NetswitchVersion" }
         $latest = ($r.tag_name -as [string]) -replace '^v',''
-        if (-not $latest) { return }
+        if (-not $latest) { return '' }
         $toTuple = { param($s)
             $parts = ($s -split '\.') | ForEach-Object {
                 $n = 0; [void][int]::TryParse($_, [ref]$n); $n
@@ -42,24 +35,31 @@ function Test-NetswitchUpdate {
         }
         $L = & $toTuple $latest
         $C = & $toTuple $NetswitchVersion
-        $isNewer = $false
         for ($i = 0; $i -lt 3; $i++) {
-            if ($L[$i] -gt $C[$i]) { $isNewer = $true; break }
-            if ($L[$i] -lt $C[$i]) { break }
+            if ($L[$i] -gt $C[$i]) { return $r.tag_name }
+            if ($L[$i] -lt $C[$i]) { return '' }
         }
-        if ($isNewer) {
-            Write-Host "Update available: v$NetswitchVersion -> $($r.tag_name)" -ForegroundColor Yellow
-            $ans = Read-Host "Open the download page in your browser? [Y/n]"
-            if ($ans -notmatch '^(n|N|no|NO)$') {
-                Start-Process $r.html_url
-            }
-            Write-Host ""
-        }
+        return ''
     } catch {
-        # silent on offline / API errors
+        return ''
     }
 }
-Test-NetswitchUpdate
+$latestTag = Get-NetswitchUpdate
+
+# --- Banner ---
+Write-Host ""
+Write-Host "==============================================" -ForegroundColor Cyan
+Write-Host "  netswitch v$NetswitchVersion - NIC IP/DHCP toggle" -ForegroundColor Cyan
+Write-Host "==============================================" -ForegroundColor Cyan
+if ($latestTag) {
+    $msg = "update available ($latestTag)"
+    $w = 0
+    try { $w = $Host.UI.RawUI.WindowSize.Width } catch { $w = 0 }
+    if ($w -lt ($msg.Length + 2)) { $w = $msg.Length + 2 }
+    $pad = $w - $msg.Length - 1
+    Write-Host ((' ' * [Math]::Max(0, $pad)) + $msg) -ForegroundColor DarkGray
+}
+Write-Host ""
 
 # --- Pick adapter (physical wired only) ---
 $skipDescriptionPattern = 'VPN|Virtual|AnyConnect|TAP-|TUN-|Bluetooth|Loopback|WAN Miniport|Hyper-V|VMware|VirtualBox|WireGuard|OpenVPN|Tailscale|ZeroTier'
