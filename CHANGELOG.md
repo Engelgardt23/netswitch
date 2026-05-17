@@ -6,6 +6,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-05-17
+### Changed
+- Dropped the `made by engelgardt` line from the startup banner — keep author credit in the README only.
+### Added
+- Embedded application icon in the exe (via ps2exe `-iconFile assets/icon.ico`).
+
 ## [1.0.0] - 2026-05-16
 ### Added
 - First public release on GitHub.

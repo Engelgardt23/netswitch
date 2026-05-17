@@ -1,7 +1,7 @@
 # netswitch v1.0.0 - quick NIC IP / DHCP toggle
 # made by engelgardt
 
-$NetswitchVersion = '1.0.0'
+$NetswitchVersion = '1.0.1'
 $GithubRepo       = 'Engelgardt23/netswitch'
 
 $ErrorActionPreference = 'Stop'
@@ -23,7 +23,6 @@ if (-not $me.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
 Write-Host ""
 Write-Host "==============================================" -ForegroundColor Cyan
 Write-Host "  netswitch v$NetswitchVersion - NIC IP/DHCP toggle" -ForegroundColor Cyan
-Write-Host "  made by engelgardt" -ForegroundColor DarkCyan
 Write-Host "==============================================" -ForegroundColor Cyan
 Write-Host ""
 
