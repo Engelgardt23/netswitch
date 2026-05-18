@@ -3,7 +3,7 @@
 [![Latest release](https://img.shields.io/github/v/release/Engelgardt23/netswitch)](https://github.com/Engelgardt23/netswitch/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-🇬🇧 English | [🇷🇺 На русском](README.ru.md)
+English | [Русский](README.ru.md)
 
 A tiny portable tool to flip a Windows network adapter between a **static IP** and **DHCP** with a few keystrokes.
 

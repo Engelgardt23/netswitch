@@ -3,7 +3,7 @@
 [![Последний релиз](https://img.shields.io/github/v/release/Engelgardt23/netswitch)](https://github.com/Engelgardt23/netswitch/releases/latest)
 [![Лицензия: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[🇬🇧 English](README.md) | 🇷🇺 На русском
+[English](README.md) | Русский
 
 Маленький портативный инструмент, который за пару нажатий переключает сетевой адаптер Windows между **статическим IP** и **DHCP**.
 
