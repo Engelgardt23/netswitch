@@ -6,6 +6,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-05-18
+### Added
+- Russian UI translation. On first launch the application asks which language to use (`1) English`, `2) Русский`) and writes the answer to a fresh `config.ini` next to `netswitch.exe`. To change the language later, edit `language = en` / `language = ru` in that file — the comment at the top of the file explains how, in both languages.
+- Bilingual `README.ru.md` linked from the main `README.md`.
+
 ## [1.0.3] - 2026-05-17
 ### Changed
 - Update check no longer interrupts startup with an interactive prompt. If a newer release is available, a quiet right-aligned `update available (vX.Y.Z)` hint is printed in dim grey directly under the banner — no key press required.
@@ -31,7 +36,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Auto-update check on startup: polls GitHub `/releases/latest` with a 3-second timeout and offers to open the download page if a newer version exists. Silent on offline / API errors.
 - MIT licensed.
 
-[Unreleased]: https://github.com/Engelgardt23/netswitch/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/Engelgardt23/netswitch/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/Engelgardt23/netswitch/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/Engelgardt23/netswitch/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/Engelgardt23/netswitch/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/Engelgardt23/netswitch/compare/v1.0.0...v1.0.1
