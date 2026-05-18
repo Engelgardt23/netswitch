@@ -50,11 +50,9 @@ language = ru
 
 ## Сборка из исходников
 
-Скрипт один — `netswitch.ps1`. Для пересборки `.exe`:
-
 ```
-Install-Module ps2exe -Scope CurrentUser
-Invoke-ps2exe -inputFile netswitch.ps1 -outputFile netswitch.exe -requireAdmin -title "netswitch" -version 1.1.0.0
+python -m pip install rich pyinstaller
+python -m PyInstaller --onefile --uac-admin --console --name netswitch --icon assets/icon.ico --paths src netswitch-launcher.py
 ```
 
 ## Лицензия

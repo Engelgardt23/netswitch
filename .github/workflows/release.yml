@@ -14,25 +14,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install build dependencies
+        run: python -m pip install --upgrade pip pyinstaller rich
+
       - name: Resolve version from tag
         id: ver
         shell: bash
         run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
-      - name: Install ps2exe
-        shell: pwsh
-        run: Install-Module -Name ps2exe -Scope CurrentUser -Force -AllowClobber
-
       - name: Build executable
-        shell: pwsh
-        run: |
-          Import-Module ps2exe
-          $ver = '${{ steps.ver.outputs.version }}'
-          Invoke-ps2exe -inputFile src/netswitch.ps1 -outputFile netswitch.exe `
-              -title "netswitch" -description "NIC IP/DHCP toggle - made by engelgardt" `
-              -company "engelgardt" -version "$ver.0" `
-              -iconFile assets/icon.ico `
-              -requireAdmin
+        run: python -m PyInstaller --onefile --uac-admin --console --name netswitch --icon assets/icon.ico --paths src netswitch-launcher.py
 
       - name: Package portable folder
         shell: pwsh
@@ -40,7 +36,7 @@ jobs:
           $ver = '${{ steps.ver.outputs.version }}'
           $folder = "netswitch-v$ver"
           New-Item -ItemType Directory -Path $folder | Out-Null
-          Copy-Item netswitch.exe $folder/
+          Copy-Item dist/netswitch.exe $folder/
           @"
           netswitch v$ver - portable edition
           made by engelgardt
@@ -49,6 +45,7 @@ jobs:
 
           USAGE
             Double-click netswitch.exe.
+            Pick the language on first run (1 - English, 2 - Russian).
             Accept the UAC prompt.
             Pick the NIC, then choose mode (Static / DHCP).
             Press Enter to exit.
@@ -56,7 +53,7 @@ jobs:
           NOTES
             - Nothing is installed. Delete the folder to remove.
             - Requires Windows 10/11.
-            - PowerShell is bundled into the exe via ps2exe; nothing extra needed.
+            - Language can be changed any time by editing 'language = en/ru' in config.ini.
           "@ | Out-File -FilePath "$folder/README.txt" -Encoding UTF8
           Compress-Archive -Path $folder -DestinationPath "netswitch-portable-v$ver.zip"
 

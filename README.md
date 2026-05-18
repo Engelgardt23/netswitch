@@ -38,11 +38,9 @@ On every launch the tool calls GitHub's `/releases/latest` (3-second timeout). I
 
 ## Build from source
 
-The script is a single `netswitch.ps1`. To rebuild the bundled `.exe`:
-
 ```
-Install-Module ps2exe -Scope CurrentUser
-Invoke-ps2exe -inputFile netswitch.ps1 -outputFile netswitch.exe -requireAdmin -title "netswitch" -version 1.0.0.0
+python -m pip install rich pyinstaller
+python -m PyInstaller --onefile --uac-admin --console --name netswitch --icon assets/icon.ico --paths src netswitch-launcher.py
 ```
 
 ## License

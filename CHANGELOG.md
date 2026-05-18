@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-05-18
+### Changed
+- **Rewrote netswitch in Python** (was PowerShell + ps2exe). The single-file `.ps1` script is gone, replaced by a small `netswitch/` package (`app.py`, `config.py`, `i18n.py`, `network.py`, `platform_win.py`, `update_check.py`) that mirrors the layout used by `dhcpsrv`. CI now builds via PyInstaller instead of ps2exe.
+- Output is now a Rich-styled console (coloured banner, current-config table) instead of plain `Write-Host`.
+- The `Update available (vX.Y.Z)` notice in the header is a clickable terminal hyperlink to the GitHub releases page (OSC 8). Modern terminals render it as a link; older consoles show plain text.
+### Removed
+- `src/netswitch.ps1` and the ps2exe build step. If you specifically need a tiny PowerShell version, check out tag `v1.1.0`.
+
 ## [1.1.0] - 2026-05-18
 ### Added
 - Russian UI translation. On first launch the application asks which language to use (`1) English`, `2) Русский`) and writes the answer to a fresh `config.ini` next to `netswitch.exe`. To change the language later, edit `language = en` / `language = ru` in that file — the comment at the top of the file explains how, in both languages.
@@ -36,7 +44,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Auto-update check on startup: polls GitHub `/releases/latest` with a 3-second timeout and offers to open the download page if a newer version exists. Silent on offline / API errors.
 - MIT licensed.
 
-[Unreleased]: https://github.com/Engelgardt23/netswitch/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/Engelgardt23/netswitch/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/Engelgardt23/netswitch/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/Engelgardt23/netswitch/compare/v1.0.3...v1.1.0
 [1.0.3]: https://github.com/Engelgardt23/netswitch/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/Engelgardt23/netswitch/compare/v1.0.1...v1.0.2

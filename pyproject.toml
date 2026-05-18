@@ -1,0 +1,26 @@
+[build-system]
+requires      = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name            = "netswitch"
+description     = "Portable Windows NIC IP / DHCP toggle."
+readme          = "README.md"
+requires-python = ">=3.10"
+license         = { text = "MIT" }
+authors         = [{ name = "engelgardt" }]
+dependencies    = ["rich>=13"]
+dynamic         = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Engelgardt23/netswitch"
+Issues   = "https://github.com/Engelgardt23/netswitch/issues"
+
+[project.scripts]
+netswitch = "netswitch.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = { attr = "netswitch.__version__" }
