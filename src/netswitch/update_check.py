@@ -21,9 +21,8 @@ def _parse_version(s: str) -> tuple[int, int, int]:
 
 def check_for_update() -> str | None:
     try:
-        url = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
+        url = f"https://git.engelgardt23.ru/api/v1/repos/{GITHUB_REPO}/releases/latest"
         req = urllib.request.Request(url, headers={
-            "Accept":     "application/vnd.github+json",
             "User-Agent": f"netswitch/{__version__}",
         })
         with urllib.request.urlopen(req, timeout=3) as r:
